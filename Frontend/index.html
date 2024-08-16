@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Notification System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Earthquake Notification System</h1>
+    </header>
+    <main>
+        <div id="notification" class="notification hidden"></div>
+        <div id="mapContainer">
+            <iframe id="map" src="" frameborder="0" title="Map"></iframe>
+        </div>
+        <div class="button-container">
+            <button id="fetchDataBtn" class="button">Fetch Earthquake Data</button>
+            <button id="installPwaBtn" class="button hidden">Install App</button>
+        </div>
+        <div id="historyContainer">
+            <ul id="dataListContainer"></ul>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Earthquake Early Warning System</p>
+    </footer>
+    <script>
+        let deferredPrompt;
+
+        // Install PWA button event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPwaBtn').classList.remove('hidden');
+        });
+
+        document.getElementById('installPwaBtn').addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the A2HS prompt');
+                    } else {
+                        console.log('User dismissed the A2HS prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

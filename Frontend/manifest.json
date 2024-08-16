@@ -1,0 +1,18 @@
+{
+    "name": "Earthquake Notification System",
+    "short_name": "EQS",
+    "description": "A Progressive Web App for Earthquake Notifications",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#007BFF",
+    "icons": [
+      
+      {
+        "src": "icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
