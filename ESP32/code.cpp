@@ -4,8 +4,8 @@
 #include <WebSocketsClient.h>
 
 // WiFi credentials
-const char* ssid = "pookies";
-const char* password = "vQ$O(lxtlv3f";
+const char* ssid = "SSID";
+const char* password = "PASSWORD";
 
 // WebSocket server details
 const char* websockets_server = "ws://157.28.2.27/ws";
